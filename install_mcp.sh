@@ -350,10 +350,14 @@ if [[ "$PLATFORM" == "Darwin" ]]; then
     check_dependency "uv" "uv" "brew install uv"
     check_dependency "jq" "jq" "brew install jq" || log_warning "jq installation failed. Will use fallback method for JSON parsing."
     check_dependency "q" "Amazon Q CLI" "brew install amazon-q"
+    # Check for Graphviz (required for diagram generation)
+    check_dependency "dot" "Graphviz" "brew install graphviz"
 else
     # For Linux, we need different installation commands
     check_dependency "uv" "uv" "pip install uv"
     check_dependency "jq" "jq" "sudo apt-get install -y jq 2>/dev/null || sudo yum install -y jq 2>/dev/null || sudo dnf install -y jq 2>/dev/null" || log_warning "jq installation failed. Will use fallback method for JSON parsing."
+    # Check for Graphviz (required for diagram generation)
+    check_dependency "dot" "Graphviz" "sudo apt-get install -y graphviz 2>/dev/null || sudo yum install -y graphviz 2>/dev/null || sudo dnf install -y graphviz 2>/dev/null"
     log_warning "For Linux, please install Amazon Q CLI manually from: https://aws.amazon.com/q/developer/"
     # Check if q is installed anyway
     if command -v q &> /dev/null; then
